@@ -1,2 +1,4 @@
 /Server/node_modules/*
 /Server/npm-debug.log
+
+.idea
