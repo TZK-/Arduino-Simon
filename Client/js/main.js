@@ -6,6 +6,7 @@ new Vue({
         started: false,
         failed: false
     },
+
     methods: {
         countIterator() {
             this.count++;
@@ -20,6 +21,11 @@ new Vue({
 
         failGame() {
             this.failed = true;
+        },
+
+        send(num) {
+            console.log(num);
+            socket().send(num);
         }
     }
 });
