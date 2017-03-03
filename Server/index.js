@@ -1,4 +1,5 @@
 let Server = require('./server')
+let WebSocket = require('ws')
 let Serial = require('./serial').Serial
 let Simon = require('./simon')
 
@@ -10,4 +11,9 @@ let serial = new Serial('COM1', {
 	baudRate: 9600
 })
 
-let simon = new Simon.Simon(8080, serial)
+let wss = new WebSocket.Server({
+	port: 8080,
+	perMessageDeflate: false
+})
+
+let simon = new Simon.Game(wss, serial)

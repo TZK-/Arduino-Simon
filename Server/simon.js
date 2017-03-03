@@ -1,18 +1,14 @@
-let WebSocket = require('ws')
 
-class Simon {
+class Game {
 
-	constructor(port, serial) {
+	constructor(wss, serial) {
 		this.serial = serial
 		this.res = []
 		this.expected = ['red', 'green', 'blue']
 		this.lost = false;
 		this.over = false;
 
-		this.wss = new WebSocket.Server({
-			port: port,
-			perMessageDeflate: false
-		})
+		this.wss = wss
 
 		this.wss.on('connection', (ws) => {
 			this.ws = ws
@@ -75,5 +71,5 @@ class Simon {
 }
 
 module.exports = {
-	Simon
+	Game
 }
