@@ -15,8 +15,8 @@
 <body>
     <div id="app">
         <div class="container" :class="{'blur-on': !started || failed}">
-            <button class="simon" id="red" @click="failGame">R</button>
-            <button class="simon" id="green" @click="countIterator">G</button>
+            <button class="simon" id="red">R</button>
+            <button class="simon" id="green">G</button>
             <button class="simon" id="blue">B</button>
             <div class="options">
                 <div class="steps">
@@ -25,7 +25,8 @@
             </div>
         </div>
 
-        <div id="start" class="slideUp floating" v-show="!started" @click="startGame">CLICK TO <br />START</div>
+        <div id="start" class="slideUp floating" v-show="!started" @click="startGame">APPUYEZ SUR LE BOUTON
+            <br /> POUR COMMENCER </div>
         <div id="fail" v-show="failed" :class="{bigEntrance: failed}" @click="startGame">FAIL <br><span>click to retry</span></div>
 
         <time id="countdown" :class="{'blur-on': !started || failed}">0:05</time>
@@ -36,7 +37,7 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/timer.js"></script>
-    <!--<script type="text/javascript" src="js/connection.js"></script>-->
+    <script type="text/javascript" src="js/connection.js"></script>
 
 </body>
 </html>

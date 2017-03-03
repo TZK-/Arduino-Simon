@@ -21,7 +21,7 @@ let timer = function secondPassed(end) {
 function startTimer() {
     interval = setInterval(function() {
         timer(function () {
-            alert("ok");
+            console.log("temps écoulé");
         });
     }, 1000);
 }

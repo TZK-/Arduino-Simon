@@ -175,44 +175,6 @@ body {
     width: 130px;
 }
 
-.start {
-    height: 50px;
-    width: 50px;
-    display: block;
-    display: block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    background: none;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    color: #F1E4F3;
-    cursor: pointer;
-}
-.start i {
-    font-size: 40px;
-}
-.start:active {
-    color: #D63B29;
-}
-
-.strict {
-    position: absolute;
-    bottom: 5px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    outline: none;
-    color: #F1E4F3;
-    height: 40px;
-    font-size: 25px;
-    font-family: 'Oswald';
-    left: 10px;
-}
-
 .steps {
     left: 35%;
     text-align: center;
@@ -276,7 +238,7 @@ body {
     text-align:center;
     position:relative;
     margin:0 auto;
-    font-size:105px;
+    font-size:60px;
     color:#ffffff;
     padding-top:95px;
 
