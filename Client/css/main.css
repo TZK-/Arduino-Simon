@@ -9,27 +9,8 @@ input[type="button"]::-moz-focus-inner {
 }
 
 body {
-    animation: colorchange 10s infinite; /* animation-name followed by duration in seconds*/
+    background: #5d7c8e;
     font-family: 'Oswald';
-    -webkit-animation: colorchange 10s infinite; /* Chrome and Safari */
-}
-
-@keyframes colorchange
-{
-    0% {background: #374954;}
-    25%  {background: #374954;}
-    50%  {background: #746f72;}
-    75%  {background: #374954;}
-    100% {background: #374954;}
-}
-
-@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
-{
-    0% {background: #374954;}
-    25%  {background: #374954;}
-    50%  {background: #746f72;}
-    75%  {background: #374954;}
-    100% {background: #374954;}
 }
 
 .container {
@@ -404,7 +385,7 @@ time {
     position: absolute;
     right: 0;
     text-align: center;
-    top: 20%;
+    top: 8%;
     user-select: none;
     z-index: 2;
 }

@@ -1,6 +1,6 @@
-
+var interval;
 let seconds = 5;
-let timer = function secondPassed(success) {
+let timer = function secondPassed(end) {
     let minutes = Math.round((seconds - 30)/60),
         remainingSeconds = seconds % 60;
 
@@ -10,16 +10,18 @@ let timer = function secondPassed(success) {
 
     document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
     if (seconds == 0) {
-        clearInterval(startTimer);
+        clearInterval(interval);
         document.getElementById('countdown').innerHTML = "00:00";
-        return success();
+        return end();
     } else {
         seconds--;
     }
 };
 
-let startTimer = setInterval(function() {
-    timer(function () {
-        alert("ok");
-    });
-}, 1000);
+function startTimer() {
+    interval = setInterval(function() {
+        timer(function () {
+            alert("ok");
+        });
+    }, 1000);
+}

@@ -15,6 +15,7 @@ new Vue({
            this.count = 0;
            this.started = true;
            this.failed = false;
+           startTimer();
         },
 
         failGame() {

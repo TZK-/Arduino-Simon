@@ -28,7 +28,7 @@
         <div id="start" class="slideUp floating" v-show="!started" @click="startGame">CLICK TO <br />START</div>
         <div id="fail" v-show="failed" :class="{bigEntrance: failed}" @click="startGame">FAIL <br><span>click to retry</span></div>
 
-        <time id="countdown">0:05</time>
+        <time id="countdown" :class="{'blur-on': !started || failed}">0:05</time>
     </div>
 
 
