@@ -16,8 +16,10 @@ class Game {
 			this.ws.on('message', (led) => {
 				this.play(led)
 				if(this.checkWon()) {
-					this.notify('win')
+					this.notify(1)
 					this.resetGame()
+				} else {
+					this.notify(0)
 				}
 			})
 		})

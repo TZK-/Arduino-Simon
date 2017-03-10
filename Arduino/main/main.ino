@@ -178,23 +178,9 @@ void blinkLight(int color) {
 }
 
 void sendSequence(node_t* head) {
-  Serial.print("{\"data\":[");
   node_t* current = head;
   while (current != NULL) {
-    switch(current->val) {
-      case red:
-        Serial.print("\"red\",");
-        break;
-      case green:
-        Serial.print("\"green\",");
-        break;
-      case blue:
-        Serial.print("\"blue\",");
-        break;
-      default:
-        break;
-    }
+    Serial.print(current->val + 1);
     current = current->next;
   }
-  Serial.println("]}");
 }
