@@ -18,6 +18,7 @@
   "homepage": "https://github.com/TZK-/Arduino-Simon#readme",
   "dependencies": {
     "express": "^4.14.1",
-    "serialport": "^4.0.7"
+    "serialport": "^4.0.7",
+    "ws": "^2.2.0"
   }
 }

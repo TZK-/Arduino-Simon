@@ -3,6 +3,8 @@ let SerialPort = require('serialport')
 class Serial {
 
 	constructor(port, config) {
+		config.parser = SerialPort.parsers.byteDelimiter([0])
+
 		this.serial = new SerialPort(port, config)
 		this.leds = []
 
@@ -11,11 +13,18 @@ class Serial {
 		})
 
 		this.serial.on('error', (err) => {
-			console.log('Serial ' + err.message);
+			console.log('Serial ' + err.message)
 		})
 
+		let stop = false;
 		this.serial.on('data', (message) => {
-			this.leds.push(message)
+			console.log(message)
+			message.pop()
+			message.forEach((el) => {
+				this.leds.push(el)
+			})
+
+			console.log(this.leds)
 		})
 	}
  

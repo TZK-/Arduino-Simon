@@ -5,6 +5,7 @@ class Game {
 		this.serial = serial
 		this.res = []
 		this.expected = this.serial.getLeds();
+
 		this.lost = false;
 		this.over = false;
 
@@ -15,11 +16,13 @@ class Game {
 			this.sendToClient('test')
 			this.ws.on('message', (led) => {
 				this.play(led)
-				if(this.checkWon()) {
-					this.notify(1)
+                //console.log(this.expected, this.res, this.over, this.lost)
+				if(this.over && !this.lost) {
+					this.notify(10)
 					this.resetGame()
-				} else {
-					this.notify(0)
+				}
+				if(this.over && this.lost) {
+					this.notify(20)
 				}
 			})
 		})
@@ -50,6 +53,7 @@ class Game {
 
 		if(this.expected.length === this.res.length) {
 			this.over = true;
+			this.lost = false;
 			return true;
 		} 
 
