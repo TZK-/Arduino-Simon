@@ -4,7 +4,7 @@ class Game {
 	constructor(wss, serial) {
 		this.serial = serial
 		this.res = []
-		this.expected = ['red', 'green', 'blue']
+		this.expected = this.serial.getLeds();
 		this.lost = false;
 		this.over = false;
 
@@ -14,7 +14,6 @@ class Game {
 			this.ws = ws
 			this.sendToClient('test')
 			this.ws.on('message', (led) => {
-				console.log(led)
 				this.play(led)
 				if(this.checkWon()) {
 					this.notify('win')
@@ -64,8 +63,7 @@ class Game {
 	}
 
 	sendToArduino(message) {
-		console.log(message)
-		// this.serial.send(message);
+		this.serial.send(message);
 	}
 
 }

@@ -23,6 +23,10 @@ class Serial {
 		this.serial.write(message)
 	}
 
+	getLeds() {
+		return this.leds;
+	}
+
 }
 
 module.exports = {

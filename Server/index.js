@@ -7,7 +7,7 @@ Server.start(3000, () => {
 	console.log("Express server started on port")
 })
 
-let serial = new Serial('COM1', {
+let serial = new Serial('COM3', {
 	baudRate: 9600
 })
 
