@@ -1,104 +1,200 @@
-#define startButton 2
-#define blue 4
-#define red 5
-#define green 6
+#define startButtonPin 2
+
+#define buzzerPin 4
+
+#define redPin 5
+#define greenPin 6
+#define bluePin 7
+
+#define red 0
+#define green 1
+#define blue 2
+
 volatile bool startPressed = false;
 bool playerLost = false;
 
-void setup() {
-  Serial.begin(9600);
-    
-  pinMode(blue, OUTPUT);
-  pinMode(red, OUTPUT);
-  pinMode(green, OUTPUT);
-  pinMode(startButton, INPUT);
-  attachInterrupt(digitalPinToInterrupt(startButton), startInterrupt, RISING);
-}
+//Définis un élément d'une liste chainée
+typedef struct node {
+    int val;
+    struct node* next;
+} node_t;
 
+void setup() {
+  //Configuration du port série
+  Serial.begin(9600);
+
+  //Génère une seed pour le RNG
+  randomSeed(analogRead(0));
+
+  //Configure les pins
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(startButtonPin, INPUT);
+  attachInterrupt(digitalPinToInterrupt(startButtonPin), startInterrupt, RISING);
+}
 
 void loop() {
- 
-  int buttonState = digitalRead(startButton);
-  
-  if(buttonState == HIGH){
-  	writeString("{data:[blue, red, blue, green]}");
-  }
-  
   if(startPressed) {
+    bool playerLost = false;
+    int currentRound = 2;
+
+    //Definition de l'élément HEAD
+    node_t* headSequence = new node_t;
+    headSequence->val = random(3);
+    
+    //Définition de l'élément current
+    node_t* current = headSequence;
+
+    //Génération d'une séquence aléatoire dans une liste chainée
+    for(int i = 0; i < currentRound - 1; i++) {
+      current->next = new node_t;               //Ajout d'un élément
+      current = current->next;                  //Itération
+      current->val = random(3);                 //Enregistrement de 0 ou 1 ou 2 dans current
+    }
+
+    //Définition de l'élément TAIL
+    node_t* tailSequence = current;
+    //Pas besoin de terminer la liste ici, un autre élément vas être rajouté
+    
     startGame();
     //Tant que le joueur n'a pas perdu :
-    int rounds = 3;
-//    while(!playerLost){
-//      //Générer une séquence aléatoire
-//      //Afficher la séquence
-//      //Récupérer la réponse du joueur
-//      //Traitement de la réponse
-//    }
-    endGame();
-    playerLost = true;
+    while(!playerLost){
+      currentRound++;
+
+      //Incrémenter la séquence aléatoire
+      tailSequence->next = new node_t;          //Ajout d'un élément
+      tailSequence = tailSequence->next;        //Itèration
+      tailSequence->val = random(3);            //Enregistrement de 0 ou 1 ou 2 dans TAIL
+      tailSequence->next = NULL;                //On termine la liste
+
+      //Afficher la séquence aléatoire
+      current = headSequence;
+      while (current != NULL) {
+        blinkLight(current->val);
+        current = current->next;
+      }
+      
+      //Envoyer la séquence au serveur
+      sendSequence(headSequence);
+      
+      //Traitement de la réponse du serveur
+      while (Serial.available() <= 0) { //On attend que la réponse soit reçue
+        delay(100);
+      }
+      
+      if(Serial.read() == 1) { //le joueur est correct
+        blinkAllLights(3);
+      }
+      else {                  //le joueur s'est trompé
+        playerLost = true;
+        blinkAllLights(5);
+      }
+    }
+    startPressed = false;
   }
-  
   delay(100);
 }
-
-
-void writeString(String stringData) { // Used to serially push out a String with Serial.write()
-
-  for (int i = 0; i < stringData.length(); i++)
-  {
-    Serial.write(stringData[i]);   // Push each char 1 by 1 on each loop pass
-  }
-
-}// end writeString 
 
 void startInterrupt() {
   startPressed = true;
 }
 
 void startGame() {
-  //Première vague
-  digitalWrite(blue, HIGH);
-  delay(50);
-  digitalWrite(blue, LOW);
-  digitalWrite(red, HIGH);
-  delay(50);
-  digitalWrite(red, LOW);
-  digitalWrite(green, HIGH);
-  delay(50);
-  digitalWrite(green, LOW);
+
+  tone(buzzerPin, 100, 100);
   
-  delay(200);
+  //Première vague
+  digitalWrite(redPin, HIGH);
+  delay(50);
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, HIGH);
+  delay(50);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, HIGH);
+  delay(50);
+  digitalWrite(bluePin, LOW);
 
+  tone(buzzerPin, 100, 100);
+  delay(200);
+  
   //Deuxième vague
-  digitalWrite(green, HIGH);
+  digitalWrite(bluePin, HIGH);
   delay(50);
-  digitalWrite(green, LOW);
-  digitalWrite(red, HIGH);
+  digitalWrite(bluePin, LOW);
+  digitalWrite(greenPin, HIGH);
   delay(50);
-  digitalWrite(red, LOW);
-  digitalWrite(blue, HIGH);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(redPin, HIGH);
   delay(50);
-  digitalWrite(blue, LOW);
+  digitalWrite(redPin, LOW);
   delay(200);
 
+  tone(buzzerPin, 100, 100);
+  
   blinkAllLights(3);
 }
 
-void endGame() {
-  blinkAllLights(5);
-  //Envoyer le score
-}
-
-void blinkAllLights(int nbOfTime){
+void blinkAllLights(int nbOfTime) {
   for(int i=0; i<=nbOfTime; i++) {
-    digitalWrite(blue, HIGH);
-    digitalWrite(red, HIGH);
-    digitalWrite(green, HIGH);
+    digitalWrite(redPin, HIGH);
+    digitalWrite(greenPin, HIGH);
+    digitalWrite(bluePin, HIGH);
+    
+    tone(buzzerPin, 100, 100);
     delay(100);
-    digitalWrite(blue, LOW);
-    digitalWrite(red, LOW);
-    digitalWrite(green, LOW);
+    
+    digitalWrite(redPin, LOW);
+    digitalWrite(greenPin, LOW);
+    digitalWrite(bluePin, LOW);
     delay(200);
   }
   delay(800);
+}
+
+void blinkLight(int color) {
+  tone(buzzerPin, 100, 100);
+  switch(color) {
+    case red:
+      digitalWrite(redPin, HIGH);
+      delay(500);
+      digitalWrite(redPin, LOW);
+      break;
+    case green:
+      digitalWrite(greenPin, HIGH);
+      delay(500);
+      digitalWrite(greenPin, LOW);
+      break;
+    case blue:
+      digitalWrite(bluePin, HIGH);
+      delay(500);
+      digitalWrite(bluePin, LOW);
+      break;
+    default:
+      break;
+  }
+  delay(1000);
+}
+
+void sendSequence(node_t* head) {
+  Serial.print("{\"data\":[");
+  node_t* current = head;
+  while (current != NULL) {
+    switch(current->val) {
+      case red:
+        Serial.print("\"red\",");
+        break;
+      case green:
+        Serial.print("\"green\",");
+        break;
+      case blue:
+        Serial.print("\"blue\",");
+        break;
+      default:
+        break;
+    }
+    current = current->next;
+  }
+  Serial.println("]}");
 }
