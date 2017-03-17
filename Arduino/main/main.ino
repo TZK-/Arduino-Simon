@@ -80,11 +80,13 @@ void loop() {
       sendSequence(headSequence);
       
       //Traitement de la réponse du serveur
-      while (Serial.available() <= 0) { //On attend que la réponse soit reçue
+      int readByte;
+      while ((readByte = Serial.read()) == -1) { //On attend que la réponse soit reçue
         delay(100);
       }
-      
-      if(Serial.read() == 1) { //le joueur est correct
+      Serial.write(readByte);
+      Serial.write(0);
+      if(readByte == 40) { //le joueur est correct
         blinkAllLights(3);
       }
       else {                  //le joueur s'est trompé
@@ -180,7 +182,8 @@ void blinkLight(int color) {
 void sendSequence(node_t* head) {
   node_t* current = head;
   while (current != NULL) {
-    Serial.print(current->val + 1);
+    Serial.write(current->val + 1);
     current = current->next;
   }
+  Serial.write(0);
 }
