@@ -4,7 +4,6 @@ class Game {
 	constructor(wss, serial) {
 		this.serial = serial
 		this.res = []
-		this.expected = this.serial.getLeds();
 
 		this.lost = false;
 		this.over = false;
@@ -16,13 +15,13 @@ class Game {
 			this.sendToClient('test')
 			this.ws.on('message', (led) => {
 				this.play(led)
-                //console.log(this.expected, this.res, this.over, this.lost)
+				
 				if(this.over && !this.lost) {
-					this.notify(10)
+					this.notify("1")
 					this.resetGame()
 				}
 				if(this.over && this.lost) {
-					this.notify(20)
+					this.notify("0")
 				}
 			})
 		})
@@ -31,6 +30,7 @@ class Game {
 	notify(message) {
 		this.sendToClient(message)
 		this.sendToArduino(message)
+		this.serial.leds = []
 	}
 
 	resetGame() {
@@ -44,24 +44,20 @@ class Game {
 			return false;
 		this.res.push(led);
 		this.res.forEach((val, index) => {
-			if(this.expected[index] != val) {
+			if(this.serial.getLeds()[index] != val) {
 				this.lost = true;
 				this.over = true;
 				return false;
 			}
 		})
 
-		if(this.expected.length === this.res.length) {
+		if(this.serial.getLeds().length === this.res.length) {
 			this.over = true;
 			this.lost = false;
 			return true;
 		} 
 
 		return false;
-	}
-
-	checkWon() {
-		return this.over && !this.lost
 	}
 
 	sendToClient(message) {
