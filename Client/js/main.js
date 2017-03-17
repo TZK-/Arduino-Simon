@@ -21,6 +21,7 @@ new Vue({
 
         failGame() {
             this.failed = true;
+            socket().send(0);
         },
 
         send(num) {

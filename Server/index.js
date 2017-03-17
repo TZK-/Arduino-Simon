@@ -3,16 +3,16 @@ let WebSocket = require('ws')
 let Serial = require('./serial').Serial
 let Simon = require('./simon')
 
-Server.start(3000, () => {
+Server.start(8001, () => {
 	console.log("Express server started on port")
 })
 
-let serial = new Serial('COM3', {
+let serial = new Serial('/dev/ttyACM4', {
 	baudRate: 9600
 })
 
 let wss = new WebSocket.Server({
-	port: 8080,
+	port: 8082,
 	perMessageDeflate: false
 })
 
