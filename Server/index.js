@@ -1,36 +1,19 @@
-var SerialPort = require('serialport');
-const WebSocket = require('ws');
-var express = require('express');
-var app = express();
+let Server = require('./server')
+let WebSocket = require('ws')
+let Serial = require('./serial').Serial
+let Simon = require('./simon')
 
+Server.start(8001, () => {
+	console.log("Express server started on port")
+})
 
-app.get('/', function (req, res) {
-	res.send('Hello World!');
-});
+let serial = new Serial('/dev/ttyACM4', {
+	baudRate: 9600
+})
 
+let wss = new WebSocket.Server({
+	port: 8082,
+	perMessageDeflate: false
+})
 
-/*var port = new SerialPort('COM3');
-
-port.on("open", function () {
-	console.log('open');
-	port.on('data', function(data) {
-		jsonText = "";
-		data.forEach((el, index) => {
-			jsonText += String.fromCharCode(el);
-		});
-		console.log(jsonText);
-	});
-});*/
-
-app.listen(3000);
-
-const wss = new WebSocket.Server({ port: 8080 });
-console.log("OK WS");
-wss.on('connection', function connection(ws) {
-	console.log("Connected..");
-	
-	ws.send("SALUT");
-
-});
-
-
+let simon = new Simon.Game(wss, serial)

@@ -5,27 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Game</title>
 
-    <!-- <link href="main.css" rel="stylesheet"> -->
+    <link rel='stylesheet prefetch' href='http://www.justinaguilar.com/animations/css/animations.css'>
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="img/favicon.ico">
 </head>
   
 <body>
-    <div class="container">
-        <button class="simon" id="red">R</button>
-        <button class="simon" id="blue">B</button>
-        <button class="simon" id="green">G</button>
-        <div class="options">
-            <button class="start"><i class="ion-power"></i></button>
-            <div class="steps">
-                <div class="text">0</div>
+    <div id="app">
+        <div class="container" :class="{'blur-on': !started || failed}">
+            <button class="simon" id="red" @click="send(1)">R</button>
+            <button class="simon" id="green" @click="send(2)">G</button>
+            <button class="simon" id="blue" @click="send(3)">B</button>
+            <div class="options">
+                <div class="steps">
+                    <div class="text">{{ count }}</div>
+                </div>
             </div>
-            <button class="strict">easy</button>
-            <div class="status">simon</div>
         </div>
+
+        <div id="start" class="slideUp floating" v-show="!started" @click="startGame">APPUYEZ SUR LE BOUTON
+            <br /> POUR COMMENCER </div>
+        <div id="fail" v-show="failed" :class="{bigEntrance: failed}" @click="startGame">FAIL <br><span>click to retry</span></div>
+
+        <!-- <time id="countdown" :class="{'blur-on': !started || failed}">0:05</time> -->
     </div>
 
-    <!-- <script type="text/javascript" src="js/main.js"></script> -->
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="js/connection.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <!-- <script type="text/javascript" src="js/timer.js"></script> -->
 
 </body>
 </html>

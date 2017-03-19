@@ -1,0 +1,353 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,300,200,700);
+
+input[type="button"]{
+    outline:none;
+}
+input[type="button"]::-moz-focus-inner {
+    border: 0;
+}
+
+body {
+    background: #5d7c8e;
+    font-family: 'Oswald';
+}
+
+.container {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+
+}
+
+.blur-on{
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+}
+
+.hidden {
+    display: none;
+}
+
+.simon {
+    height: 120px;
+    width: 120px;
+    cursor: pointer;
+    background: none;
+    padding: none;
+    border: none;
+    margin: none;
+    box-shadow: none;
+    outline: none;
+    border-radius: 50%;
+    font-family: 'Oswald';
+    font-size: 50px;
+    -webkit-transition: background 0.2s ease-in;
+    transition: background 0.2s ease-in;
+    -webkit-transition: border 0.1s linear;
+    transition: border 0.1s linear;
+}
+
+#red {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+#red {
+    top: 0;
+}
+
+#green, #blue {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#green {
+    right: 0;
+}
+
+#blue {
+    left: 0;
+}
+
+#green {
+    border: #00CC66 solid 15px;
+    color: #00CC66;
+}
+#green:hover {
+    background: #00CC66;
+    color: #1E1E24;
+}
+#green:hover:active {
+    -webkit-transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.clicked-green:before {
+    display: block;
+    content: '';
+    opacity: 0;
+    background: #00CC66;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    -webkit-animation: click 0.4s ease-in 1;
+    animation: click 0.4s ease-in 1;
+}
+
+#red {
+    border: #D63B29 solid 15px;
+    color: #D63B29;
+}
+#red:hover {
+    background: #D63B29;
+    color: #1E1E24;
+}
+#red:hover:active {
+    -webkit-transform: translateX(-50%) scale(1.1);
+    transform: translateX(-50%) scale(1.1);
+}
+
+.clicked-red:before {
+    display: block;
+    content: '';
+    opacity: 0;
+    background: #D63B29;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    -webkit-animation: click 0.4s ease-in 1;
+    animation: click 0.4s ease-in 1;
+}
+
+#blue {
+    border: #006992 solid 15px;
+    color: #006992;
+}
+#blue:hover {
+    background: #006992;
+    color: #1E1E24;
+}
+#blue:hover:active {
+    -webkit-transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.clicked-blue:before {
+    display: block;
+    content: '';
+    opacity: 0;
+    background: #006992;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    -webkit-animation: click 0.4s ease-in 1;
+    animation: click 0.4s ease-in 1;
+}
+
+.options {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: block;
+    height: 130px;
+    width: 130px;
+}
+
+.steps {
+    left: 35%;
+    text-align: center;
+    top: 29%;
+}
+.steps .text {
+    font-size: 4em;
+    color: #F1E4F3;
+    font-family: 'Oswald';
+}
+
+.clicked:before {
+    display: block;
+    content: '';
+    opacity: 0;
+    background: black;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    -webkit-animation: click 0.4s linear 1;
+    animation: click 0.4s linear 1;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: wait;
+}
+
+@-webkit-keyframes click {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes click {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+#start {
+    display:block;
+    width:400px;
+    height:350px;
+    text-align:center;
+    position:relative;
+    margin:0 auto;
+    font-size:60px;
+    color:#ffffff;
+    padding-top:95px;
+
+
+
+}
+#start:hover {
+    cursor:pointer;
+}
+
+#fail {
+    width:400px;
+    height:350px;
+    text-align:center;
+    position:relative;
+    margin:0 auto;
+    font-size:105px;
+    color:#ffffff;
+    padding-top:95px;
+}
+
+#fail span {
+    font-size:50px;
+}
+
+#fail:hover {
+    cursor:pointer;
+}
+
+/* TIMER */
+
+@keyframes height {
+    100% {
+        height: 100%;
+    }
+}
+@keyframes color {
+    0% {
+        background-color: #e53917;
+    }
+    100% {
+        background-color: #64de1a;
+    }
+}
+@keyframes opacity {
+    100% {
+        opacity: 0;
+    }
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+ul li:nth-child(1) {
+    animation-duration: 1500s, 1500s;
+    animation-iteration-count: 1;
+    animation-name: height, color;
+    opacity: .6;
+}
+ul li:nth-child(2) {
+    animation-duration: 60s, 1500s, 60s;
+    animation-iteration-count: 25;
+    animation-name: height, color, opacity;
+    animation-timing-function: step-stop;
+    opacity: .2;
+}
+ul li:nth-child(3) {
+    animation-duration: 30s, 1500s, 30s;
+    animation-iteration-count: 50;
+    animation-name: height, color, opacity;
+    animation-timing-function: step-stop;
+    opacity: .2;
+}
+ul li:nth-child(4) {
+    animation-duration: 10s, 1500s, 10s;
+    animation-iteration-count: 150;
+    animation-name: height, color, opacity;
+    animation-timing-function: step-stop;
+    opacity: .2;
+}
+ul li:nth-child(5) {
+    animation-duration: 5s, 1500s, 5s;
+    animation-iteration-count: 300;
+    animation-name: height, color, opacity;
+    opacity: .1;
+}
+
+time {
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 4em;
+    font-weight: 300;
+    height: 100px;
+    left: 0;
+    line-height: 100px;
+    margin-top: -50px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 8%;
+    user-select: none;
+    z-index: 2;
+}
