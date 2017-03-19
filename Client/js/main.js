@@ -1,5 +1,5 @@
 
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: {
         count: 0,
@@ -12,16 +12,20 @@ new Vue({
             this.count++;
         },
 
-        startGame() {
-           this.count = 0;
-           this.started = true;
-           this.failed = false;
-           startTimer();
+        countReset() {
+            this.count = 0;
         },
 
-        failGame() {
+        startGame() {
+           this.countReset();
+           this.started = true;
+           this.failed = false;
+           // startTimer();
+        },
+
+        failedGame() {
+            this.countReset();
             this.failed = true;
-            socket().send(0);
         },
 
         send(num) {
