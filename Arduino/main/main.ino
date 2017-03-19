@@ -84,9 +84,8 @@ void loop() {
       while ((readByte = Serial.read()) == -1) { //On attend que la réponse soit reçue
         delay(100);
       }
-      Serial.write(readByte);
-      Serial.write(0);
-      if(readByte == 40) { //le joueur est correct
+
+      if(readByte == '1') { //le joueur est correct
         blinkAllLights(3);
       }
       else {                  //le joueur s'est trompé
