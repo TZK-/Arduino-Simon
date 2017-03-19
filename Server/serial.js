@@ -16,15 +16,11 @@ class Serial {
 			console.log('Serial ' + err.message)
 		})
 
-		let stop = false;
 		this.serial.on('data', (message) => {
-			console.log(message)
 			message.pop()
 			message.forEach((el) => {
 				this.leds.push(el)
 			})
-
-			console.log(this.leds)
 		})
 	}
  
