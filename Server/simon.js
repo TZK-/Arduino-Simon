@@ -22,6 +22,7 @@ class Game {
 				}
 				if(this.over && this.lost) {
 					this.notify("0")
+					this.resetGame()
 				}
 			})
 		})

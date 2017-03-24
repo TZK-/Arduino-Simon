@@ -7,7 +7,7 @@ Server.start(8001, () => {
 	console.log("Express server started on port")
 })
 
-let serial = new Serial('/dev/ttyACM4', {
+let serial = new Serial('/dev/ttyACM3', {
 	baudRate: 9600
 })
 
