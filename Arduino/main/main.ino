@@ -24,7 +24,7 @@ void setup() {
   Serial.begin(9600);
 
   //Génère une seed pour le RNG
-  randomSeed(analogRead(0));
+  randomSeed(analogRead(13));
 
   //Configure les pins
   pinMode(redPin, OUTPUT);
